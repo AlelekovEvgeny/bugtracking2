@@ -16,31 +16,34 @@ Vue.component('project-form', {
     props: ['projects', 'projectAttr'],
     data: function() {
         return {
-            name: '',
+            discriptionProject: '',
+            nameProject: '',
             id: ''
         }
     },
     watch: {
         projectAttr: function(newVal, oldVal) {
-            this.name = newVal.name;
+            this.discriptionProject = newVal.discriptionProject;
+            this.nameProject = newVal.nameProject;
             this.id = newVal.id;
         }
     },
     template:
     '<div>' +
-    '<input type="text" placeholder="Write something" v-model="name" />' +
+    '<input type="text" placeholder="Write name project" v-model="nameProject" />' +
+    '<input type="text" placeholder="Write discription project" v-model="discriptionProject" />' +
     '<input type="button" value="Save" @click="save" />' +
     '</div>',
     methods: {
         save: function() {
-            var project = { name: this.name };
+            var project = { nameProject: this.nameProject };
 
             if (this.id) {
                 projectApi.update({id: this.id}, project).then(result =>
                 result.json().then(data => {
                     var index = getIndex(this.projects, data.id);
                 this.projects.splice(index, 1, data);
-                this.name = ''
+                this.nameProject = ''
                 this.id = ''
             })
             )
@@ -48,7 +51,7 @@ Vue.component('project-form', {
                 projectApi.save({}, project).then(result =>
                 result.json().then(data => {
                     this.projects.push(data);
-                this.name = ''
+                this.nameProject = ''
             })
             )
             }
@@ -59,7 +62,7 @@ Vue.component('project-form', {
 Vue.component('project-row', {
     props: ['project', 'editMethod', 'projects'],
     template: '<div>' +
-    '<i>({{ project.id }})</i> {{ project.name }}' +
+    '<i>({{ project.id }})</i> {{ project.nameProject }} <b>{{project.discriptionProject}}</b>' +
     '<span style="position: absolute; right: 0">' +
     '<input type="button" value="Edit" @click="edit" />' +
     '<input type="button" value="X" @click="del" />' +

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ProjectControllerTest {
 
-    private static ProjectRestController controller = new ProjectRestController();
+    /*private static ProjectRestController controller = new ProjectRestController();
 
     @Test
     public void delete() throws Exception {
@@ -15,5 +15,5 @@ public class ProjectControllerTest {
         Collection projects = controller.list();
         assertEquals(projects.size(), 2);
         assertEquals(projects.iterator().next().toString(), ProjectTestData.RESULT_AFTER_DELETE);
-    }
+    }*/
 }
