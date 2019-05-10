@@ -36,7 +36,7 @@ Vue.component('project-form', {
     '</div>',
     methods: {
         save: function() {
-            var project = { nameProject: this.nameProject };
+            var project = { nameProject: this.nameProject, discriptionProject: this.discriptionProject };
 
             if (this.id) {
                 projectApi.update({id: this.id}, project).then(result =>
@@ -44,6 +44,7 @@ Vue.component('project-form', {
                     var index = getIndex(this.projects, data.id);
                 this.projects.splice(index, 1, data);
                 this.nameProject = ''
+                this.discriptionProject = ''
                 this.id = ''
             })
             )
@@ -52,6 +53,7 @@ Vue.component('project-form', {
                 result.json().then(data => {
                     this.projects.push(data);
                 this.nameProject = ''
+                this.discriptionProject = ''
             })
             )
             }

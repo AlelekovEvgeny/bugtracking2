@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "projects")
-@ToString(of = {"id", "name_project"})
+@ToString(of = {"id", "name_project", "discription"})
 @EqualsAndHashCode(of = {"id"})
 public class Project {
     @Id
@@ -88,7 +88,5 @@ public class Project {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
+
 }
