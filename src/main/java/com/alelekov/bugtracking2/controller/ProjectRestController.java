@@ -28,7 +28,7 @@ public class ProjectRestController {
     }
 
     @GetMapping("{id}")
-    @JsonView(Views.FullMessage.class)
+    @JsonView(Views.FullProject.class)
     public Project getOne(@PathVariable("id") Project project) {
         return project;
     }

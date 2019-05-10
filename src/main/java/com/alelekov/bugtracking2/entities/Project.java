@@ -7,10 +7,11 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
-@ToString(of = {"id", "name"})
+@ToString(of = {"id", "name_project"})
 @EqualsAndHashCode(of = {"id"})
 public class Project {
     @Id
@@ -28,13 +29,20 @@ public class Project {
 
     @Column(name = "date_create", updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonView(Views.FullMessage.class)
+    @JsonView(Views.FullProject.class)
     private LocalDateTime dateCreate;
 
     @Column(name = "date_update")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonView(Views.FullMessage.class)
+    @JsonView(Views.FullProject.class)
     private LocalDateTime dateUpdate;
+
+    @OneToMany(mappedBy = "project", orphanRemoval = true)
+    @JsonView(Views.FullProject.class)
+    private List<Task> tasks;
+
+    public Project() {
+    }
 
     public Long getId() {
         return id;
@@ -74,5 +82,13 @@ public class Project {
 
     public void setDateUpdate(LocalDateTime dateUpdate) {
         this.dateUpdate = dateUpdate;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
